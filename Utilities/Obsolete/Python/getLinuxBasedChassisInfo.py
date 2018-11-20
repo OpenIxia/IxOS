@@ -2,6 +2,9 @@
 """
 A script that shows how to use REST APIs to connect to a Linux 
 based chassis including IxVM chassis to retrieve chassis, card/port info.
+
+This script is obsolete and is only being kept for reference.
+Please use the REST API interface from IxOS/Utilities/Python/RestApi instead.
 """
 
 import json
