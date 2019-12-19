@@ -5,9 +5,8 @@ import sys
 import os
 import io
 import re
+from functools import reduce
 from .IxTclHalError import IxTclHalError
-#from IxTclHalError import IxTclHalError
-
 
 class IxTclHal:
 
@@ -191,9 +190,9 @@ class IxTclHal:
                         self.__interp.eval("lappend ::auto_path {%s}" % path)
                         if 'ixTclHal.tcl' in files:
                             try:
-                                file = open(os.path.join(path,'pkgIndex.tcl'), 'r')
-                                self.__versions["IxTclHal"] = re.findall("package ifneeded IxTclHal (\d+\.\d+)",''.join(file.readlines()))[0]
-                                file.close()
+                                with open(os.path.join(path,'pkgIndex.tcl'), 'r') as file:
+                                    lines = reduce(lambda a,b: a+unicode(b, errors='ignore'),file.readlines())
+                                    self.__versions["IxTclHal"] = re.findall("package ifneeded IxTclHal (\d+\.\d+)",lines)[0]
                                 if tclHalDllRequired and tclHalDllLocation is None:
                                     expectedTclHalDllLocation = os.path.normpath(os.path.join(path,'..'+os.path.sep+'..'+os.path.sep+'..'+os.path.sep+'IxTCLHAL.dll'))
                                     if os.path.isfile(expectedTclHalDllLocation):
