@@ -5,7 +5,7 @@ import sys
 import os
 import io
 import re
-from . import IxTclHalError
+from .IxTclHalError import IxTclHalError
 #from IxTclHalError import IxTclHalError
 
 
